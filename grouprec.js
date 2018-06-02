@@ -55,15 +55,34 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 //Callback handler to get places API results and then filter them 
 function handleRecommendations(results, status) {
+  console.log("hello");
+  var queryString = decodeURIComponent(window.location.search);
+  console.log(queryString);
+  queryString = queryString.substring(1);
+  var queries = queryString.split("&");
+  console.log(queries);
+
+  var history1 = JSON.parse(queries[0]);
+  var history2 = JSON.parse(queries[1]);
+  var history3 = JSON.parse(queries[2]);
+
+  console.log(history1);
+  console.log(history2);
+  console.log(history3);
+
+
+for (var i = 0; i < queries.length; i++)
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
-      //Add to recommendation list on UI
-      var li = document.createElement("li");
-      li.appendChild(document.createTextNode(results[i].name));
-      li.setAttribute("id", results[i].name);
-      recUL.appendChild(li);
+      if(!history1.includes(results[i].name) && !history2.includes(results[i].name) && !history3.includes(results[i].name)) {
+        var place = results[i];
+        createMarker(results[i]);
+        //Add to recommendation list on UI
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(results[i].name));
+        li.setAttribute("id", results[i].name);
+        recUL.appendChild(li);
+      }
     }
   }
 }
