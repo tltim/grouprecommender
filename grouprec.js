@@ -105,4 +105,5 @@ function createMarker(place) {
 //Highlight or show which restaurant it is
 function showRecommendation(){
   console.log(this.getTitle());
+  document.getElementById(this.getTitle()).style.color = "red";
 }
